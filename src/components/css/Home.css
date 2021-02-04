@@ -1,0 +1,36 @@
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-direction: column;
+}
+.home__auth {
+  display: flex;
+  flex-direction: row;
+}
+.home__header {
+  font-size: 65px;
+  color: aliceblue;
+}
+.home__auth__loginBtn,
+.home__auth__signupBtn {
+  all: initial;
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 24px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: #7269de;
+  margin: 5px;
+  width: 100px;
+  text-align: center;
+  border: 2px #222 solid;
+  border-radius: 5px;
+}
+.home__auth__loginBtn {
+  background-color: #6262ed;
+  color: aliceblue;
+  border-color: antiquewhite;
+}
