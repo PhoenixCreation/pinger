@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/Auth";
 import "./css/Home.css";
+import Pinger from "./Pinger";
 
 export default function Home() {
   const history = useHistory();
@@ -50,13 +51,6 @@ export default function Home() {
       </div>
     );
   } else {
-    return (
-      <div className="home">
-        <div className="chec">{user.username}</div>
-        <button className="home__auth__loginBtn" onClick={() => logout()}>
-          LogOut
-        </button>
-      </div>
-    );
+    return <Pinger />;
   }
 }
