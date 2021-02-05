@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../../context/Auth";
 import "../css/auth/Signup.css";
@@ -10,16 +10,17 @@ export default function Signup() {
   const [newUser, setNewUser] = useState({ username: "", password: "" });
   const [usernameWarning, setUsernameWarning] = useState("");
 
+  useEffect(() => {
+    if (localStorage.getItem("u_token")) {
+      history.push("/");
+    }
+  }, []);
+
   const formSubmit = async (e) => {
     e.preventDefault();
-    signup(newUser.username, newUser.password).then((check) => {
+    await signup(newUser.username, newUser.password).then((check) => {
       console.log(check);
-      // if (check !== 1) {
-      //   console.log(check);
-      //   setUsernameWarning(check.toString());
-      // } else {
-      //   history.push("/");
-      // }
+      history.push("/");
     });
   };
 
@@ -36,7 +37,6 @@ export default function Signup() {
 
   return (
     <div className="signup">
-      {user.username}
       <div className="signup__form__cont">
         <div className="signup__form__header">Sign Up</div>
         <form onSubmit={formSubmit} className="signup__form">
@@ -48,6 +48,7 @@ export default function Signup() {
               onChange={handleUsername}
               placeholder="Username"
               className="signup__username__field"
+              required
             />
             <div className="signup__username__warning">{usernameWarning}</div>
           </div>
@@ -59,6 +60,7 @@ export default function Signup() {
               onChange={handlePassword}
               placeholder="Password"
               className="signup__password__field"
+              required
             />
           </div>
           <button type="submit" className="signup__submit_btn">

@@ -1,49 +1,52 @@
 import React, { useState, createContext } from "react";
-import { requestSignup } from "../Api/api";
+import { requestLogin, requestSignup, requestUser } from "../Api/api";
 
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState({});
 
-  const login = (username, password) => {
-    if (username === "test") {
-      setUser({ name: username, password });
-    } else {
-      setUser({});
-    }
+  const login = async (username, password) => {
+    requestLogin(username, password).then((data) => {
+      if (data.user) {
+        setUser(data.user);
+        localStorage.setItem("u_token", data.user.token);
+        return 1;
+      } else {
+        return data.error;
+      }
+    });
   };
 
   const signup = async (username, password) => {
-    if (
-      username !== "" ||
-      username !== null ||
-      password !== "" ||
-      password !== null
-    ) {
-      requestSignup(username, password).then((data) => {
-        if (data.user) {
-          setUser(data.user);
-          console.log("returning real user");
-          return 1;
-        } else {
-          console.log("returning error");
-          return data.error;
-        }
-      });
-    } else {
-      setUser({});
-      console.log("something went wrong");
-      return "Somthing went wrong";
-    }
+    requestSignup(username, password).then((data) => {
+      if (data.user) {
+        localStorage.setItem("u_token", data.user.token);
+        setUser(data.user);
+        return 1;
+      } else {
+        return data.error;
+      }
+    });
   };
 
   const logout = () => {
+    localStorage.removeItem("u_token");
     setUser({});
   };
 
+  const getUser = (u_token) => {
+    requestUser(u_token).then((data) => {
+      if (data.user) {
+        setUser(data.user);
+      }
+    });
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser, login, signup, logout }}>
+    <UserContext.Provider
+      value={{ user, setUser, login, signup, logout, getUser }}
+    >
       {props.children}
     </UserContext.Provider>
   );

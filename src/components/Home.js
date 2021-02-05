@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/Auth";
 import "./css/Home.css";
 
 export default function Home() {
   const history = useHistory();
-  const { user, logout } = useContext(UserContext);
+  const { user, logout, getUser } = useContext(UserContext);
+
+  useEffect(() => {
+    let u_token = localStorage.getItem("u_token");
+    if (u_token) {
+      getUser(u_token);
+    }
+  }, []);
 
   const goto = (path) => {
     history.push(`${path}`);
