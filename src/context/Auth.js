@@ -1,4 +1,5 @@
 import React, { useState, createContext } from "react";
+import { requestSignup } from "../Api/api";
 
 export const UserContext = createContext();
 
@@ -13,16 +14,27 @@ export const UserProvider = (props) => {
     }
   };
 
-  const signup = (username, password) => {
+  const signup = async (username, password) => {
     if (
       username !== "" ||
       username !== null ||
       password !== "" ||
       password !== null
     ) {
-      setUser({ name: username, password });
+      requestSignup(username, password).then((data) => {
+        if (data.user) {
+          setUser(data.user);
+          console.log("returning real user");
+          return 1;
+        } else {
+          console.log("returning error");
+          return data.error;
+        }
+      });
     } else {
       setUser({});
+      console.log("something went wrong");
+      return "Somthing went wrong";
     }
   };
 

@@ -10,34 +10,46 @@ export default function Home() {
   const goto = (path) => {
     history.push(`${path}`);
   };
-  return (
-    <div className="home">
-      <h1 className="home__header">Pinger. . . .</h1>
-      <div className="home__greet">{user?.name}</div>
-      {user?.name ? (
+
+  if (!user.username) {
+    return (
+      <div className="home">
+        <h1 className="home__header">Pinger. . . .</h1>
+        <div className="home__greet">{user?.name}</div>
+        {user?.name ? (
+          <button className="home__auth__loginBtn" onClick={() => logout()}>
+            LogOut
+          </button>
+        ) : (
+          <div className="home__auth">
+            <div className="home__auth__login">
+              <button
+                className="home__auth__loginBtn"
+                onClick={() => goto("/login")}
+              >
+                Login
+              </button>
+            </div>
+            <div className="home__auth__signup">
+              <button
+                className="home__auth__signupBtn"
+                onClick={() => goto("/signup")}
+              >
+                Signup
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <div className="home">
+        <div className="chec">{user.username}</div>
         <button className="home__auth__loginBtn" onClick={() => logout()}>
           LogOut
         </button>
-      ) : (
-        <div className="home__auth">
-          <div className="home__auth__login">
-            <button
-              className="home__auth__loginBtn"
-              onClick={() => goto("/login")}
-            >
-              Login
-            </button>
-          </div>
-          <div className="home__auth__signup">
-            <button
-              className="home__auth__signupBtn"
-              onClick={() => goto("/signup")}
-            >
-              Signup
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 }
