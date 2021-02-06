@@ -7,6 +7,7 @@ import "./css/Pinger.css";
 
 let servers = [
   {
+    id: "1",
     server_name: "Personal of Phoenix",
     server_icon: "https://picsum.photos/52/52?random=1",
     server_poster: "https://picsum.photos/250/100",
@@ -33,8 +34,32 @@ let servers = [
       ],
     },
     boosted: false,
+    users: [
+      {
+        username: "Phoenix Creation",
+        avatar_url: "https://picsum.photos/40/40?random=1",
+        presence: "Fighting with bugs🐛",
+        status: "online",
+        type: "bot",
+      },
+      {
+        username: "Patel Het",
+        avatar_url: "https://picsum.photos/40/40?random=2",
+        presence: "Playing with some games",
+        status: "online",
+        type: "person",
+      },
+      {
+        username: "Patel Zeel",
+        avatar_url: "https://picsum.photos/40/40?random=3",
+        presence: "Thinking something",
+        status: "offline",
+        type: "person",
+      },
+    ],
   },
   {
+    id: "2",
     server_name: "Programming Humor",
     server_icon: "https://picsum.photos/50/50",
     server_poster: "https://picsum.photos/250/100",
@@ -101,12 +126,45 @@ let servers = [
       ],
     },
     boosted: false,
+    users: [
+      {
+        username: "Phoenix Creation",
+        avatar_url: "https://picsum.photos/40/40?random=1",
+        presence: "Fighting with bugs🐛",
+        status: "online",
+        type: "bot",
+      },
+      {
+        username: "Patel Het",
+        avatar_url: "https://picsum.photos/40/40?random=2",
+        presence: "Playing with some games",
+        status: "online",
+        type: "person",
+      },
+      {
+        username: "Patel Het",
+        avatar_url: "https://picsum.photos/40/40?random=5",
+        presence: "Playing with some apps",
+        status: "typing",
+        type: "person",
+      },
+      {
+        username: "Patel Zeel",
+        avatar_url: "https://picsum.photos/40/40?random=3",
+        presence: "Thinking something",
+        status: "offline",
+        type: "person",
+      },
+    ],
   },
 ];
-servers.push(servers[0]);
-servers.push(servers[0]);
-servers.push(servers[0]);
-servers.push(servers[0]);
+servers.push({ ...servers[0], id: "3" });
+servers.push({ ...servers[0], id: "4" });
+servers.push({ ...servers[0], id: "5" });
+servers.push({ ...servers[0], id: "6" });
+let temp = servers[0];
+servers[0] = servers[1];
+servers[1] = temp;
 
 export default function Pinger() {
   const { user, logout } = useContext(UserContext);
@@ -125,11 +183,15 @@ export default function Pinger() {
         </div>
         <div className="serverbar__servers">
           {servers.map((server) => {
+            const isCurrent = crntServer == server;
             return (
               <div
                 className="serverbar__server"
                 onClick={() => setCrntServer(server)}
               >
+                {isCurrent && (
+                  <div className="serverbar__server__current"></div>
+                )}
                 <img
                   src={server.server_icon}
                   alt={server.server_name.slice(0, 2).toUpperCase()}
@@ -142,7 +204,12 @@ export default function Pinger() {
           })}
         </div>
         <div className="serverbar__addserver">
-          <div className="serverbar__addicon">
+          <div
+            className="serverbar__addicon"
+            onClick={() => {
+              console.log("Add server....");
+            }}
+          >
             <AddIcon style={{ fontSize: 40, color: "green" }} />
           </div>
         </div>
@@ -214,7 +281,7 @@ export default function Pinger() {
                   }
                   onClick={() => setCrntChannel(channel)}
                 >
-                  {channel.unread && (
+                  {channel.available && (
                     <div className="textchannel__unread"></div>
                   )}
                   <div className="textchannel__icon">#</div>
@@ -238,7 +305,82 @@ export default function Pinger() {
           <button onClick={logout}>Log out</button>
         </div>
       </div>
-      <div className="pinger__usersbar"></div>
+      <div className="pinger__usersbar">
+        <div className="userbar__onlineusers">
+          <div className="userbar__onlineuserText">
+            {"Online Members - " +
+              crntServer.users.reduce((total, current) => {
+                if (current.status !== "offline") {
+                  return total + 1;
+                } else {
+                  return total;
+                }
+              }, 0)}
+          </div>
+          {crntServer.users.map((user) => {
+            if (user.status === "offline") {
+              return;
+            }
+
+            return (
+              <div className="userbar__user">
+                <div className="userbar__avatar__cont">
+                  <img
+                    src={user.avatar_url}
+                    alt={user.username.slice(0, 2).toUpperCase()}
+                    className="userbar__user__avatarimg"
+                  />
+                  {user.status === "typing" ? (
+                    <div className="userbar__user__statusTyping"></div>
+                  ) : (
+                    <div className="userbar__user__statusOnline"></div>
+                  )}
+                </div>
+                <div className="userbar__user__userdetails">
+                  <div className="userbar__user__username">{user.username}</div>
+                  <div className="userbar__user__presence">{user.presence}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="userbar__offlineusers">
+          <div className="userbar__offlineuserText">
+            {"Offline Members - " +
+              crntServer.users.reduce((total, current) => {
+                if (current.status === "offline") {
+                  return total + 1;
+                } else {
+                  return total;
+                }
+              }, 0)}
+          </div>
+          {crntServer.users.map((user) => {
+            if (user.status !== "offline") {
+              return;
+            }
+
+            return (
+              <div className="userbar__user">
+                <div className="userbar__avatar__cont">
+                  <img
+                    src={user.avatar_url}
+                    alt={user.username.slice(0, 2).toUpperCase()}
+                    className="userbar__user__avatarimg"
+                  />
+                  <div className="userbar__user__statusOffline"></div>
+                </div>
+                <div className="userbar__user__userdetails">
+                  <div className="userbar__user__username offline">
+                    {user.username}
+                  </div>
+                  <div className="userbar__user__presence">{user.presence}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

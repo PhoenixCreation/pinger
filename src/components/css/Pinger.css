@@ -41,6 +41,9 @@
 .pinger__usersbar {
   width: 250px;
   background-color: #2f312f;
+  opacity: 0;
+  animation: fadein 1s linear 3s;
+  animation-fill-mode: forwards;
 }
 
 /* Server Bar */
@@ -121,13 +124,15 @@
 .serverbar__server:last-child {
   margin-bottom: 15px;
 }
-.serverbar__server:hover {
-  transform: translateY(-5px);
+.serverbar__server:hover .server__icon {
+  /* transform: translateY(-5px); */
+  border-radius: 20px;
 }
 .server__icon {
   width: 120%;
   height: 120%;
-  border-radius: 120px;
+  transition: all 0.2s linear;
+  border-radius: 30px;
 }
 .serverbar__addserver {
   flex: 1;
@@ -167,6 +172,14 @@
 }
 .serverbar__addicon:hover {
   background-color: #3f2a;
+}
+.serverbar__server__current {
+  position: absolute;
+  left: -15px;
+  width: 8px;
+  height: 100%;
+  border-radius: 2px;
+  background-color: white;
 }
 
 /* channel bar */
@@ -214,7 +227,7 @@
   opacity: 0;
   animation: specialofvoice 0.5s linear 2.2s;
   animation-fill-mode: forwards;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
 }
 @keyframes specialofvoice {
   0% {
@@ -297,17 +310,25 @@
   flex: 1;
 }
 .textchannel__addIcon {
+  display: none;
   margin-right: 5px;
-  display: flex;
   align-items: center;
   font-size: 20px;
   transition: all 0.3s linear;
 }
 .textchannel__settingsIcon {
-  display: flex;
+  display: none;
   align-items: center;
   font-size: 20px;
   transition: all 0.3s linear;
+}
+.textchannel__cont.active .textchannel__addIcon,
+.textchannel__cont.active .textchannel__settingsIcon {
+  display: flex;
+}
+.textchannel__cont:hover .textchannel__addIcon,
+.textchannel__cont:hover .textchannel__settingsIcon {
+  display: flex;
 }
 .textchannel__settingsIcon:hover,
 .textchannel__addIcon:hover {
@@ -315,4 +336,100 @@
 }
 .textchannel__settingsIcon:hover {
   transform: rotate(-45deg);
+}
+.textchannel__unread {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  transform: translateX(-30px);
+  background-color: white;
+}
+
+/* Users Bar */
+.userbar__onlineusers,
+.userbar__offlineusers {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  padding-bottom: 0;
+  border-radius: 20px;
+  border-bottom: 2px solid grey;
+}
+.userbar__onlineuserText,
+.userbar__offlineuserText {
+  font-weight: bold;
+  font-size: 16px;
+}
+.userbar__user {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+  cursor: pointer;
+}
+.userbar__avatar__cont {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+.userbar__user__avatarimg {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
+.userbar__user__statusOnline,
+.userbar__user__statusTyping,
+.userbar__user__statusOffline {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  background-color: lightgray;
+  border-radius: 100px;
+}
+.userbar__user__statusTyping {
+  width: 20px;
+}
+.userbar__user__statusTyping::after,
+.userbar__user__statusTyping::before {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 60px;
+  background-color: grey;
+  left: 55%;
+  top: 20%;
+}
+.userbar__user__statusTyping::before {
+  left: 10%;
+}
+.userbar__user__statusOnline {
+  background-color: #2f2;
+}
+.userbar__user__userdetails {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.userbar__user__username {
+  color: lightgreen;
+  font-size: 18px;
+}
+.userbar__user__presence {
+  color: grey;
+  font-size: 16px;
+  max-lines: 1;
+  overflow: hidden;
+  max-height: 25px;
+}
+.userbar__user__statusOffline {
+  background-color: rgb(110, 110, 110);
+}
+.userbar__user__username.offline {
+  color: lightgray;
+}
+.userbar__user:hover .userbar__user__presence {
+  max-height: none;
 }
