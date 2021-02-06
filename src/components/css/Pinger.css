@@ -17,6 +17,7 @@
   scrollbar-width: none;
 }
 .pinger__channelbar {
+  position: relative;
   width: 250px;
   background-color: #2f3136;
   overflow-x: hidden;
@@ -227,7 +228,7 @@
   opacity: 0;
   animation: specialofvoice 0.5s linear 2.2s;
   animation-fill-mode: forwards;
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 @keyframes specialofvoice {
   0% {
@@ -344,6 +345,79 @@
   border-radius: 100px;
   transform: translateX(-30px);
   background-color: white;
+}
+.currentUser__cont {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  align-items: center;
+  background-color: #222222;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-top: 2px solid grey;
+}
+.currentUser__avatar__cont {
+  position: relative;
+}
+.currentUser__avatar__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+}
+.currentUser__avatar__status {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 7px;
+  background-color: grey;
+}
+.currentUser__avatar__status.online {
+  background-color: #2f2;
+}
+.currentUser__avatar__status.typing {
+  background-color: blue;
+}
+.currentUser__userinfo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-left: 5px;
+  overflow: hidden;
+}
+.currentUser__username {
+  color: #dd1;
+  font-size: 17px;
+  font-weight: 700;
+}
+.currentUser__presence {
+  font-size: 12px;
+  max-lines: 1;
+  max-height: 20px;
+  color: grey;
+}
+.currentUser__options {
+  display: flex;
+  font-size: 20px;
+  color: grey;
+}
+[class^="currentUser__option"] {
+  margin-right: 5px;
+  transition: all 0.2s linear;
+}
+.currentUser__option__mic:hover,
+.currentUser__option__speaker:hover,
+.currentUser__option__settings:hover {
+  color: white;
+}
+.currentUser__option__settings:hover {
+  transform: rotate(45deg);
 }
 
 /* Users Bar */

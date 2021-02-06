@@ -3,6 +3,8 @@ import { UserContext } from "../context/Auth";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
+import SettingsVoiceIcon from "@material-ui/icons/SettingsVoice";
+import HeadsetIcon from "@material-ui/icons/Headset";
 import "./css/Pinger.css";
 
 let servers = [
@@ -161,7 +163,10 @@ let servers = [
 servers.push({ ...servers[0], id: "3" });
 servers.push({ ...servers[0], id: "4" });
 servers.push({ ...servers[0], id: "5" });
-servers.push({ ...servers[0], id: "6" });
+// servers.push({ ...servers[0], id: "6" });
+// servers.push({ ...servers[0], id: "7" });
+// servers.push({ ...servers[0], id: "8" });
+// servers.push({ ...servers[0], id: "9" });
 let temp = servers[0];
 servers[0] = servers[1];
 servers[1] = temp;
@@ -221,6 +226,8 @@ export default function Pinger() {
             alt={crntServer.server_name}
             className="channels__poster"
           />
+        </div>
+        <div className="channels">
           <div className="channels__serverName">{crntServer.server_name}</div>
           <div className="channels__textchannels">
             <div className="channels__textchannels_toogler">
@@ -297,6 +304,31 @@ export default function Pinger() {
                 </div>
               );
             })}
+          </div>
+        </div>
+        <div className="currentUser__cont">
+          <div className="currentUser__avatar__cont">
+            <img
+              src={user?.avatar_url}
+              alt="add it idiot"
+              className="currentUser__avatar__img"
+            />
+            <div className={"currentUser__avatar__status " + user.status}></div>
+          </div>
+          <div className="currentUser__userinfo">
+            <div className="currentUser__username">{user?.username}</div>
+            <div className="currentUser__presence">{user?.presence}</div>
+          </div>
+          <div className="currentUser__options">
+            <div className="currentUser__option__mic">
+              <SettingsVoiceIcon fontSize="inherit" />
+            </div>
+            <div className="currentUser__option__speaker">
+              <HeadsetIcon fontSize="inherit" />
+            </div>
+            <div className="currentUser__option__settings">
+              <SettingsIcon fontSize="inherit" />
+            </div>
           </div>
         </div>
       </div>
