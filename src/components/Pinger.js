@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/Auth";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import SettingsIcon from "@material-ui/icons/Settings";
 import "./css/Pinger.css";
 
 let servers = [
   {
     server_name: "Personal of Phoenix",
-    server_icon:
-      "https://cdn1.iconfinder.com/data/icons/social-media-vol-3-2/24/_p_copy-256.png",
+    server_icon: "https://picsum.photos/52/52?random=1",
     server_poster: "https://picsum.photos/250/100",
     channels: {
       text: [
@@ -43,7 +44,15 @@ let servers = [
           unread: true,
         },
         {
-          channel_name: "notifier",
+          channel_name: "programming help",
+          unread: false,
+        },
+        {
+          channel_name: "off topic",
+          unread: false,
+        },
+        {
+          channel_name: "bot spam",
           unread: false,
         },
       ],
@@ -70,6 +79,11 @@ export default function Pinger() {
   const { user, logout } = useContext(UserContext);
 
   const [crntServer, setCrntServer] = useState(servers[0]);
+  const [crntChannel, setCrntChannel] = useState(crntServer.channels.text[0]);
+
+  useEffect(() => {
+    setCrntChannel(crntServer.channels.text[0]);
+  }, [crntServer]);
   return (
     <div className="pinger">
       <div className="pinger__serverbar">
@@ -103,6 +117,82 @@ export default function Pinger() {
             className="channels__poster"
           />
           <div className="channels__serverName">{crntServer.server_name}</div>
+          <div className="channels__textchannels">
+            <div className="channels__textchannels_toogler">
+              <div className="channels__textchannels_tooglerTextCont">
+                <div className="channels__textchannels_tooglerTextIndicator">
+                  {">"}
+                </div>
+                <div className="channels__textchannels_tooglerText">
+                  Text Channels
+                </div>
+              </div>
+              <div className="channels__textchannels_tooglerAdd">+</div>
+            </div>
+            {crntServer.channels.text.map((channel) => {
+              const isActive = crntChannel === channel;
+              return (
+                <div
+                  className={
+                    isActive ? "textchannel__cont active" : "textchannel__cont"
+                  }
+                  onClick={() => setCrntChannel(channel)}
+                >
+                  {channel.unread && (
+                    <div className="textchannel__unread"></div>
+                  )}
+                  <div className="textchannel__icon">#</div>
+                  <div className="textchannel__name">
+                    {channel.channel_name}
+                  </div>
+                  <div className="textchannel__addIcon">
+                    <PersonAddIcon fontSize="inherit" />
+                  </div>
+                  <div className="textchannel__settingsIcon">
+                    <SettingsIcon fontSize="inherit" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="channels__voicechannels">
+            <div className="channels__textchannels_toogler">
+              <div className="channels__textchannels_tooglerTextCont">
+                <div className="channels__textchannels_tooglerTextIndicator">
+                  {">"}
+                </div>
+                <div className="channels__textchannels_tooglerText">
+                  Voice Channels
+                </div>
+              </div>
+              <div className="channels__textchannels_tooglerAdd">+</div>
+            </div>
+            {crntServer.channels.voice.map((channel) => {
+              const isActive = crntChannel === channel;
+              return (
+                <div
+                  className={
+                    isActive ? "textchannel__cont active" : "textchannel__cont"
+                  }
+                  onClick={() => setCrntChannel(channel)}
+                >
+                  {channel.unread && (
+                    <div className="textchannel__unread"></div>
+                  )}
+                  <div className="textchannel__icon">#</div>
+                  <div className="textchannel__name">
+                    {channel.channel_name}
+                  </div>
+                  <div className="textchannel__addIcon">
+                    <PersonAddIcon fontSize="inherit" />
+                  </div>
+                  <div className="textchannel__settingsIcon">
+                    <SettingsIcon fontSize="inherit" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       <div className="pinger__chatbar">

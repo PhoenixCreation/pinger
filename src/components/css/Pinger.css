@@ -3,6 +3,7 @@
   flex-direction: row;
   height: 100vh;
   width: 100%;
+  color: aliceblue;
 }
 .pinger__serverbar {
   display: flex;
@@ -116,6 +117,96 @@
   position: relative;
   color: aliceblue;
   font-size: 24px;
-  margin-top: -30px;
+  margin-top: -25px;
   z-index: 10;
+  border-bottom: 2px solid #1117;
+}
+.channels__textchannels {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.channels__voicechannels {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.channels__textchannels_toogler {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: grey;
+  cursor: pointer;
+}
+.channels__textchannels_toogler:hover {
+  color: aliceblue;
+}
+.channels__textchannels_tooglerTextCont {
+  display: flex;
+  flex-direction: row;
+}
+.channels__textchannels_tooglerTextIndicator {
+  margin-right: 4px;
+}
+.channels__textchannels_tooglerText {
+  font-weight: bold;
+  color: lightgray;
+}
+.channels__textchannels_tooglerAdd {
+  font-size: 24px;
+  transition: all 0.3s linear;
+}
+.channels__textchannels_tooglerAdd:hover {
+  font-size: 30px;
+}
+.textchannel__cont {
+  display: flex;
+  flex-direction: row;
+  color: grey;
+  padding-left: 15px;
+  padding-right: 15px;
+  align-items: center;
+  height: 40px;
+  cursor: pointer;
+}
+.textchannel__cont:hover {
+  color: lightgray;
+}
+.textchannel__cont.active {
+  color: aliceblue;
+  font-weight: 600;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  border-right: 2px solid grey;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+.textchannel__icon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+.textchannel__name {
+  text-transform: capitalize;
+  flex: 1;
+}
+.textchannel__addIcon {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  transition: all 0.3s linear;
+}
+.textchannel__settingsIcon {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  transition: all 0.3s linear;
+}
+.textchannel__settingsIcon:hover,
+.textchannel__addIcon:hover {
+  font-size: 26px;
+}
+.textchannel__settingsIcon:hover {
+  transform: rotate(-45deg);
 }
