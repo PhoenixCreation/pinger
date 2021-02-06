@@ -220,90 +220,96 @@ export default function Pinger() {
         </div>
       </div>
       <div className="pinger__channelbar">
-        <div className="channelbar__poster">
-          <img
-            src={crntServer.server_poster}
-            alt={crntServer.server_name}
-            className="channels__poster"
-          />
-        </div>
-        <div className="channels">
-          <div className="channels__serverName">{crntServer.server_name}</div>
-          <div className="channels__textchannels">
-            <div className="channels__textchannels_toogler">
-              <div className="channels__textchannels_tooglerTextCont">
-                <div className="channels__textchannels_tooglerTextIndicator">
-                  {">"}
-                </div>
-                <div className="channels__textchannels_tooglerText">
-                  Text Channels
-                </div>
-              </div>
-              <div className="channels__textchannels_tooglerAdd">+</div>
-            </div>
-            {crntServer.channels.text.map((channel) => {
-              const isActive = crntChannel === channel;
-              return (
-                <div
-                  className={
-                    isActive ? "textchannel__cont active" : "textchannel__cont"
-                  }
-                  onClick={() => setCrntChannel(channel)}
-                >
-                  {channel.unread && (
-                    <div className="textchannel__unread"></div>
-                  )}
-                  <div className="textchannel__icon">#</div>
-                  <div className="textchannel__name">
-                    {channel.channel_name}
-                  </div>
-                  <div className="textchannel__addIcon">
-                    <PersonAddIcon fontSize="inherit" />
-                  </div>
-                  <div className="textchannel__settingsIcon">
-                    <SettingsIcon fontSize="inherit" />
-                  </div>
-                </div>
-              );
-            })}
+        <div className="chanels__main">
+          <div className="channelbar__poster">
+            <img
+              src={crntServer.server_poster}
+              alt={crntServer.server_name}
+              className="channels__poster"
+            />
           </div>
-          <div className="channels__voicechannels">
-            <div className="channels__textchannels_toogler">
-              <div className="channels__textchannels_tooglerTextCont">
-                <div className="channels__textchannels_tooglerTextIndicator">
-                  {">"}
+          <div className="channels">
+            <div className="channels__serverName">{crntServer.server_name}</div>
+            <div className="channels__textchannels">
+              <div className="channels__textchannels_toogler">
+                <div className="channels__textchannels_tooglerTextCont">
+                  <div className="channels__textchannels_tooglerTextIndicator">
+                    {">"}
+                  </div>
+                  <div className="channels__textchannels_tooglerText">
+                    Text Channels
+                  </div>
                 </div>
-                <div className="channels__textchannels_tooglerText">
-                  Voice Channels
-                </div>
+                <div className="channels__textchannels_tooglerAdd">+</div>
               </div>
-              <div className="channels__textchannels_tooglerAdd">+</div>
+              {crntServer.channels.text.map((channel) => {
+                const isActive = crntChannel === channel;
+                return (
+                  <div
+                    className={
+                      isActive
+                        ? "textchannel__cont active"
+                        : "textchannel__cont"
+                    }
+                    onClick={() => setCrntChannel(channel)}
+                  >
+                    {channel.unread && (
+                      <div className="textchannel__unread"></div>
+                    )}
+                    <div className="textchannel__icon">#</div>
+                    <div className="textchannel__name">
+                      {channel.channel_name}
+                    </div>
+                    <div className="textchannel__addIcon">
+                      <PersonAddIcon fontSize="inherit" />
+                    </div>
+                    <div className="textchannel__settingsIcon">
+                      <SettingsIcon fontSize="inherit" />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            {crntServer.channels.voice.map((channel) => {
-              const isActive = crntChannel === channel;
-              return (
-                <div
-                  className={
-                    isActive ? "textchannel__cont active" : "textchannel__cont"
-                  }
-                  onClick={() => setCrntChannel(channel)}
-                >
-                  {channel.available && (
-                    <div className="textchannel__unread"></div>
-                  )}
-                  <div className="textchannel__icon">#</div>
-                  <div className="textchannel__name">
-                    {channel.channel_name}
+            <div className="channels__voicechannels">
+              <div className="channels__textchannels_toogler">
+                <div className="channels__textchannels_tooglerTextCont">
+                  <div className="channels__textchannels_tooglerTextIndicator">
+                    {">"}
                   </div>
-                  <div className="textchannel__addIcon">
-                    <PersonAddIcon fontSize="inherit" />
-                  </div>
-                  <div className="textchannel__settingsIcon">
-                    <SettingsIcon fontSize="inherit" />
+                  <div className="channels__textchannels_tooglerText">
+                    Voice Channels
                   </div>
                 </div>
-              );
-            })}
+                <div className="channels__textchannels_tooglerAdd">+</div>
+              </div>
+              {crntServer.channels.voice.map((channel) => {
+                const isActive = crntChannel === channel;
+                return (
+                  <div
+                    className={
+                      isActive
+                        ? "textchannel__cont active"
+                        : "textchannel__cont"
+                    }
+                    onClick={() => setCrntChannel(channel)}
+                  >
+                    {channel.available && (
+                      <div className="textchannel__unread"></div>
+                    )}
+                    <div className="textchannel__icon">#</div>
+                    <div className="textchannel__name">
+                      {channel.channel_name}
+                    </div>
+                    <div className="textchannel__addIcon">
+                      <PersonAddIcon fontSize="inherit" />
+                    </div>
+                    <div className="textchannel__settingsIcon">
+                      <SettingsIcon fontSize="inherit" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div className="currentUser__cont">
