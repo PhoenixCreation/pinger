@@ -118,6 +118,9 @@
   transition: all 0.2s linear;
   position: relative;
 }
+.serverbar__server:last-child {
+  margin-bottom: 15px;
+}
 .serverbar__server:hover {
   transform: translateY(-5px);
 }
@@ -195,11 +198,33 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+  border-radius: 20px;
+  border-bottom: 2px solid grey;
+  transform: translateY(-120%);
+  animation: serverbarmain 0.5s linear 2s;
+  animation-fill-mode: forwards;
 }
 .channels__voicechannels {
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
   padding: 10px;
+  border-bottom: 2px solid grey;
+  transform: translateY(-120%);
+  opacity: 0;
+  animation: specialofvoice 0.5s linear 2.2s;
+  animation-fill-mode: forwards;
+  margin-bottom: 20px;
+}
+@keyframes specialofvoice {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 .channels__textchannels_toogler {
   display: flex;
