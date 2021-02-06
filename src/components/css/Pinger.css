@@ -12,12 +12,27 @@
   width: 70px;
   background-color: #2f3136;
   border-right: 1px solid #a9a9a988;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: visible;
   scrollbar-width: none;
 }
 .pinger__channelbar {
   width: 250px;
   background-color: #2f3136;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  opacity: 0;
+  animation: fadein 0.5s ease-out 1.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .pinger__chatbar {
   flex: 1;
@@ -39,6 +54,18 @@
   border-bottom-right-radius: 100px;
   background-color: #111111;
   transition: all 0.3s linear;
+  transform: translateY(-100%);
+  animation: serverbarmain 0.4s ease;
+  animation-fill-mode: forwards;
+  z-index: 10;
+}
+@keyframes serverbarmain {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 .serverbar__main__textCont {
   transition: all 0.3s linear;
@@ -71,13 +98,15 @@
   border-bottom: 2px solid #fffa;
   border-bottom-left-radius: 100px;
   border-bottom-right-radius: 100px;
+  transform: translateY(-120%);
+  animation: serverbarmain 0.7s ease-in 1s;
+  animation-fill-mode: forwards;
 }
 .serverbar__server {
   all: initial;
   cursor: pointer;
   width: 50px;
   height: 50px;
-  background-color: grey;
   color: white;
   border-radius: 60px;
   font-size: 24px;
@@ -86,22 +115,62 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  transition: all 0.2s linear;
+  position: relative;
 }
 .serverbar__server:hover {
-  background-color: aliceblue;
-  border-bottom: 2px solid grey;
+  transform: translateY(-5px);
 }
 .server__icon {
   width: 120%;
   height: 120%;
+  border-radius: 120px;
+}
+.serverbar__addserver {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #11111199;
+  margin-top: 2px;
+  align-items: center;
+  border-top: 2px solid #fffa;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  transform: translateY(120%);
+  animation: slide-up 0.7s ease-in 1.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes slide-up {
+  0% {
+    transform: translateY(120%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.serverbar__addicon {
+  all: initial;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #aaa;
+  margin: 10px;
+  transition: all 0.2s linear;
+}
+.serverbar__addicon:hover {
+  background-color: #3f2a;
 }
 
 /* channel bar */
 .channelbar__poster {
   width: 250px;
   height: 100px;
-  background-color: red;
+  /* background-color: red; */
   position: relative;
 }
 .channelbar__poster::before {
@@ -118,6 +187,7 @@
   color: aliceblue;
   font-size: 24px;
   margin-top: -25px;
+  padding-left: 15px;
   z-index: 10;
   border-bottom: 2px solid #1117;
 }
@@ -181,6 +251,17 @@
   border-right: 2px solid grey;
   border-top: 1px solid grey;
   border-bottom: 1px solid grey;
+  transform: translateX(-120%);
+  animation: right-in 0.3s ease;
+  animation-fill-mode: forwards;
+}
+@keyframes right-in {
+  0% {
+    transform: translateX(-80%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .textchannel__icon {
   font-size: 20px;

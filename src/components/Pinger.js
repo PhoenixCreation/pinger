@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/Auth";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import SettingsIcon from "@material-ui/icons/Settings";
+import AddIcon from "@material-ui/icons/Add";
 import "./css/Pinger.css";
 
 let servers = [
@@ -55,8 +56,40 @@ let servers = [
           channel_name: "bot spam",
           unread: false,
         },
+        {
+          channel_name: "general",
+          unread: true,
+        },
+        {
+          channel_name: "programming help",
+          unread: false,
+        },
+        {
+          channel_name: "off topic",
+          unread: false,
+        },
+        {
+          channel_name: "bot spam",
+          unread: false,
+        },
       ],
       voice: [
+        {
+          channel_name: "voice1",
+          available: false,
+        },
+        {
+          channel_name: "voice 2",
+          available: true,
+        },
+        {
+          channel_name: "voice1",
+          available: false,
+        },
+        {
+          channel_name: "voice 2",
+          available: true,
+        },
         {
           channel_name: "voice1",
           available: false,
@@ -93,7 +126,7 @@ export default function Pinger() {
         <div className="serverbar__servers">
           {servers.map((server) => {
             return (
-              <button
+              <div
                 className="serverbar__server"
                 onClick={() => setCrntServer(server)}
               >
@@ -104,9 +137,14 @@ export default function Pinger() {
                   height="50px"
                   className="server__icon"
                 />
-              </button>
+              </div>
             );
           })}
+        </div>
+        <div className="serverbar__addserver">
+          <div className="serverbar__addicon">
+            <AddIcon style={{ fontSize: 40, color: "green" }} />
+          </div>
         </div>
       </div>
       <div className="pinger__channelbar">
