@@ -1,0 +1,78 @@
+.chat {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.chat__send__cont {
+  position: absolute;
+  bottom: 0;
+  background-color: rgb(44, 44, 44);
+  border-radius: 10px;
+  display: flex;
+  width: calc(100% - 40px);
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+.chat__send__addbtn {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.chat__send__addicon {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 30px;
+  background-color: grey;
+  color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s linear;
+  font-size: 20px;
+}
+.chat__send__addicon:hover {
+  color: aliceblue;
+}
+.chat__send__input__cont {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+.chat__send__input__form {
+  height: 50px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.chat__send__input__field {
+  all: initial;
+  flex: 1;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: aliceblue;
+}
+.chat__send__options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 24px;
+}
+.chat__send__option {
+  color: grey;
+  transition: all 0.15s linear;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.chat__send__option:hover {
+  color: aliceblue;
+}
+.chat__send__option__gif {
+  font-size: 30px;
+}
+.messages__cont {
+  overflow-y: scroll;
+  height: calc(100% - 80px);
+}

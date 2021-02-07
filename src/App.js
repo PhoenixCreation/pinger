@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
 import { UserProvider } from "./context/Auth";
+import { ServerProvider } from "./context/Server";
 
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
@@ -13,23 +14,25 @@ function App() {
   return (
     <div className="app">
       <UserProvider>
-        <Router>
-          <div className="App"></div>
-          <Switch>
-            <Route path="/" exact>
-              <Home />
-            </Route>
-            <Route path="/login" exact>
-              <Login />
-            </Route>
-            <Route path="/signup" exact>
-              <Signup />
-            </Route>
-            <Route path="/phoenix/secretpath" exact>
-              <Pinger />
-            </Route>
-          </Switch>
-        </Router>
+        <ServerProvider>
+          <Router>
+            <div className="App"></div>
+            <Switch>
+              <Route path="/" exact>
+                <Home />
+              </Route>
+              <Route path="/login" exact>
+                <Login />
+              </Route>
+              <Route path="/signup" exact>
+                <Signup />
+              </Route>
+              <Route path="/phoenix/secretpath" exact>
+                <Pinger />
+              </Route>
+            </Switch>
+          </Router>
+        </ServerProvider>
       </UserProvider>
     </div>
   );
