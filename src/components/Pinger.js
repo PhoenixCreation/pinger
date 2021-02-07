@@ -204,6 +204,20 @@ export default function Pinger() {
             </div>
             <div className="currentUser__option__settings">
               <SettingsIcon fontSize="inherit" />
+              <div className="currentUser__options__quickSettings">
+                <div
+                  className="currentUser__options__quickSetting logout"
+                  onClick={() => logout()}
+                >
+                  Log ouT
+                </div>
+                <div
+                  className="currentUser__options__quickSetting Additional"
+                  onClick={() => {}}
+                >
+                  Settings
+                </div>
+              </div>
             </div>
           </div>
         </div>
