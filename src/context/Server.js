@@ -28,7 +28,7 @@ let chatsDemo = [
     timestamp: new Date(2021, 0, 21, 4, 30),
     type: "text",
     message:
-      "This is going to be the Second message. Also this will check the ability to handle the long messages.",
+      "This is going to be the Second message. Also this will check the ability to handle the long messages. This is going to be the Second message. Also this will check the ability to handle the long messages.",
     attachments: [],
     edited: false,
   },
@@ -232,11 +232,7 @@ export const ServerProvider = (props) => {
   ]);
   const [crntServer, setCrntServer] = useState(allServers[0]);
   const [crntChannel, setCrntChannel] = useState(crntServer.channels.text[0]);
-  const [chats, setChats] = useState(
-    chatsDemo.sort((a, b) => {
-      return a.timestamp > b.timestamp;
-    })
-  );
+  const [chats, setChats] = useState(chatsDemo);
 
   useEffect(() => {
     setCrntChannel(crntServer.channels.text[0]);
@@ -244,7 +240,19 @@ export const ServerProvider = (props) => {
 
   useEffect(() => {
     //Remove this.... this is temporary... remov when connect to database
-    setChats([...chats, { ...chats[0], id: Math.random() * 1000 }]);
+    setChats([
+      ...chats,
+      {
+        ...chats[0],
+        id: Math.random() * 1000,
+        sender: {
+          username: "bob",
+          avatar_url: `https://picsum.photos/40/40?random=${Math.floor(
+            Math.random() * 1000
+          )}`,
+        },
+      },
+    ]);
   }, [crntChannel]);
 
   return (
