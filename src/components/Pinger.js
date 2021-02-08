@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { UserContext } from "../context/Auth";
 import { ServerContext } from "../context/Server";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
@@ -19,9 +20,22 @@ export default function Pinger() {
     crntChannel,
     setCrntChannel,
   } = useContext(ServerContext);
+  const history = useHistory();
 
   const [showTextChannels, setShowTextChannels] = useState(true);
   const [showVoiceChannels, setShowVoiceChannels] = useState(true);
+
+  if (servers.length === 0) {
+    return (
+      <div
+        className="app__loading"
+        style={{ color: "aliceblue" }}
+        onClick={() => history.push("/create/server")}
+      >
+        Loading some good stuff.....
+      </div>
+    );
+  }
 
   return (
     <div className="pinger">
@@ -58,7 +72,7 @@ export default function Pinger() {
           <div
             className="serverbar__addicon"
             onClick={() => {
-              console.log("Add server....");
+              history.push("/create/server");
             }}
           >
             <AddIcon style={{ fontSize: 40, color: "green" }} />
@@ -226,80 +240,90 @@ export default function Pinger() {
         <Chat />
       </div>
       <div className="pinger__usersbar">
-        <div className="userbar__onlineusers">
-          <div className="userbar__onlineuserText">
-            {"Online Members - " +
-              crntServer.users.reduce((total, current) => {
-                if (current.status !== "offline") {
-                  return total + 1;
-                } else {
-                  return total;
-                }
-              }, 0)}
-          </div>
-          {crntServer.users.map((user, index) => {
-            if (user.status === "offline") {
-              return null;
-            }
-
-            return (
-              <div className="userbar__user" key={index + user.username}>
-                <div className="userbar__avatar__cont">
-                  <img
-                    src={user.avatar_url}
-                    alt={user.username.slice(0, 2).toUpperCase()}
-                    className="userbar__user__avatarimg"
-                  />
-                  {user.status === "typing" ? (
-                    <div className="userbar__user__statusTyping"></div>
-                  ) : (
-                    <div className="userbar__user__statusOnline"></div>
-                  )}
-                </div>
-                <div className="userbar__user__userdetails">
-                  <div className="userbar__user__username">{user.username}</div>
-                  <div className="userbar__user__presence">{user.presence}</div>
-                </div>
+        {Array.isArray(crntServer.users) && (
+          <>
+            <div className="userbar__onlineusers">
+              <div className="userbar__onlineuserText">
+                {"Online Members - " +
+                  crntServer.users.reduce((total, current) => {
+                    if (current.status !== "offline") {
+                      return total + 1;
+                    } else {
+                      return total;
+                    }
+                  }, 0)}
               </div>
-            );
-          })}
-        </div>
-        <div className="userbar__offlineusers">
-          <div className="userbar__offlineuserText">
-            {"Offline Members - " +
-              crntServer.users.reduce((total, current) => {
-                if (current.status === "offline") {
-                  return total + 1;
-                } else {
-                  return total;
+              {crntServer.users.map((user, index) => {
+                if (user.status === "offline") {
+                  return null;
                 }
-              }, 0)}
-          </div>
-          {crntServer.users.map((user, index) => {
-            if (user.status !== "offline") {
-              return null;
-            }
 
-            return (
-              <div className="userbar__user" key={index + user.username}>
-                <div className="userbar__avatar__cont">
-                  <img
-                    src={user.avatar_url}
-                    alt={user.username.slice(0, 2).toUpperCase()}
-                    className="userbar__user__avatarimg"
-                  />
-                  <div className="userbar__user__statusOffline"></div>
-                </div>
-                <div className="userbar__user__userdetails">
-                  <div className="userbar__user__username offline">
-                    {user.username}
+                return (
+                  <div className="userbar__user" key={index + user.username}>
+                    <div className="userbar__avatar__cont">
+                      <img
+                        src={user.avatar_url}
+                        alt={user.username.slice(0, 2).toUpperCase()}
+                        className="userbar__user__avatarimg"
+                      />
+                      {user.status === "typing" ? (
+                        <div className="userbar__user__statusTyping"></div>
+                      ) : (
+                        <div className="userbar__user__statusOnline"></div>
+                      )}
+                    </div>
+                    <div className="userbar__user__userdetails">
+                      <div className="userbar__user__username">
+                        {user.username}
+                      </div>
+                      <div className="userbar__user__presence">
+                        {user.presence}
+                      </div>
+                    </div>
                   </div>
-                  <div className="userbar__user__presence">{user.presence}</div>
-                </div>
+                );
+              })}
+            </div>
+            <div className="userbar__offlineusers">
+              <div className="userbar__offlineuserText">
+                {"Offline Members - " +
+                  crntServer.users.reduce((total, current) => {
+                    if (current.status === "offline") {
+                      return total + 1;
+                    } else {
+                      return total;
+                    }
+                  }, 0)}
               </div>
-            );
-          })}
-        </div>
+              {crntServer.users.map((user, index) => {
+                if (user.status !== "offline") {
+                  return null;
+                }
+
+                return (
+                  <div className="userbar__user" key={index + user.username}>
+                    <div className="userbar__avatar__cont">
+                      <img
+                        src={user.avatar_url}
+                        alt={user.username.slice(0, 2).toUpperCase()}
+                        className="userbar__user__avatarimg"
+                      />
+                      <div className="userbar__user__statusOffline"></div>
+                    </div>
+                    <div className="userbar__user__userdetails">
+                      <div className="userbar__user__username offline">
+                        {user.username}
+                      </div>
+                      <div className="userbar__user__presence">
+                        {user.presence}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

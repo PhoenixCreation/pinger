@@ -36,3 +36,16 @@ export const requestUser = async (u_token) => {
     return -1;
   }
 };
+
+export const requestCreateServer = async (newServer) => {
+  try {
+    if (!newServer.server_name) {
+      return -1;
+    }
+    const response = await axios.post(`${URL}/server/create`, newServer);
+    return response.data;
+  } catch (error) {
+    console.log("Api frontedn call error", error);
+    return -1;
+  }
+};
