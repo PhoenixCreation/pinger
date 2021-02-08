@@ -14,6 +14,7 @@ import Chat from "./Chat";
 export default function Pinger() {
   const { user, logout } = useContext(UserContext);
   const {
+    serverLoading,
     servers,
     crntServer,
     setCrntServer,
@@ -25,16 +26,20 @@ export default function Pinger() {
   const [showTextChannels, setShowTextChannels] = useState(true);
   const [showVoiceChannels, setShowVoiceChannels] = useState(true);
 
-  if (servers.length === 0) {
-    return (
-      <div
-        className="app__loading"
-        style={{ color: "aliceblue" }}
-        onClick={() => history.push("/create/server")}
-      >
-        Loading some good stuff.....
-      </div>
-    );
+  // if (servers.length === 0) {
+  //   return (
+  //     <div
+  //       className="app__loading"
+  //       style={{ color: "aliceblue" }}
+  //       onClick={() => history.push("/create/server")}
+  //     >
+  //       Loading some good stuff.....
+  //     </div>
+  //   );
+  // }
+
+  if (serverLoading) {
+    return <div className="AppIsLoading">Loading your amazing servers</div>;
   }
 
   return (

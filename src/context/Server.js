@@ -1,5 +1,6 @@
-import React, { useState, createContext, useEffect } from "react";
-import { requestCreateServer } from "../Api/api";
+import React, { useState, createContext, useEffect, useContext } from "react";
+import { requestCreateServer, reuestAddUserToServer } from "../Api/api";
+import { UserContext } from "./Auth";
 
 export const ServerContext = createContext();
 
@@ -130,112 +131,26 @@ let serverDemo = [
       },
     ],
   },
-  {
-    id: "2",
-    server_name: "Programming Humor",
-    server_icon: "https://picsum.photos/50/50",
-    server_poster: "https://picsum.photos/250/100",
-    channels: {
-      text: [
-        {
-          channel_name: "general",
-          unread: true,
-        },
-        {
-          channel_name: "programming help",
-          unread: false,
-        },
-        {
-          channel_name: "off topic",
-          unread: false,
-        },
-        {
-          channel_name: "bot spam",
-          unread: false,
-        },
-        {
-          channel_name: "general",
-          unread: true,
-        },
-        {
-          channel_name: "programming help",
-          unread: false,
-        },
-        {
-          channel_name: "off topic",
-          unread: false,
-        },
-        {
-          channel_name: "bot spam",
-          unread: false,
-        },
-      ],
-      voice: [
-        {
-          channel_name: "voice1",
-          available: false,
-        },
-        {
-          channel_name: "voice 2",
-          available: true,
-        },
-        {
-          channel_name: "voice1",
-          available: false,
-        },
-        {
-          channel_name: "voice 2",
-          available: true,
-        },
-        {
-          channel_name: "voice1",
-          available: false,
-        },
-        {
-          channel_name: "voice 2",
-          available: true,
-        },
-      ],
-    },
-    boosted: false,
-    users: [
-      {
-        username: "Phoenix Creation",
-        avatar_url: "https://picsum.photos/40/40?random=1",
-        presence: "Fighting with bugs🐛",
-        status: "online",
-        type: "bot",
-      },
-      {
-        username: "Patel Het",
-        avatar_url: "https://picsum.photos/40/40?random=2",
-        presence: "Playing with some games",
-        status: "online",
-        type: "person",
-      },
-      {
-        username: "Patel Het",
-        avatar_url: "https://picsum.photos/40/40?random=5",
-        presence: "Playing with some apps",
-        status: "typing",
-        type: "person",
-      },
-      {
-        username: "Patel Zeel",
-        avatar_url: "https://picsum.photos/40/40?random=3",
-        presence: "Thinking something",
-        status: "offline",
-        type: "person",
-      },
-    ],
-  },
 ];
 
 export const ServerProvider = (props) => {
+  const { user } = useContext(UserContext);
+
   const [allServers, setAllServers] = useState(serverDemo);
   const [crntServer, setCrntServer] = useState(allServers[0]);
   const [crntChannel, setCrntChannel] = useState(crntServer.channels.text[0]);
   const [chats, setChats] = useState(chatsDemo);
+  const [serverLoading, setserverLoading] = useState(false);
+
+  // Remove this ASAP.........//////.......
+  useEffect(() => {
+    // setTimeout(() => {
+    //   setserverLoading(false);
+    // }, 3000);
+    if (user.token) {
+      console.log("Start requesting servers....");
+    }
+  }, [user]);
 
   useEffect(() => {
     //Remove this.... this is temporary... remov when connect to database
@@ -284,6 +199,18 @@ export const ServerProvider = (props) => {
     });
   };
 
+  const addUserToServer = async (server_id, user_id) => {
+    if (
+      server_id === null ||
+      server_id === "" ||
+      user_id === null ||
+      user_id === ""
+    ) {
+      return -1;
+    }
+    reuestAddUserToServer(server_id, user_id);
+  };
+
   useEffect(() => {
     if (crntServer.channels) {
       setCrntChannel(crntServer?.channels.text[0]);
@@ -301,6 +228,8 @@ export const ServerProvider = (props) => {
         chats,
         setChats,
         createServer,
+        addUserToServer,
+        serverLoading,
       }}
     >
       {props.children}

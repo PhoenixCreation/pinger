@@ -6,7 +6,7 @@ import Pinger from "./Pinger";
 
 export default function Home() {
   const history = useHistory();
-  const { user, logout, getUser } = useContext(UserContext);
+  const { user, logout, getUser, authLoading } = useContext(UserContext);
 
   useEffect(() => {
     let u_token = localStorage.getItem("u_token");
@@ -19,10 +19,20 @@ export default function Home() {
     history.push(`${path}`);
   };
 
+  if (authLoading) {
+    return (
+      <div className="AppIsLoading">
+        {authLoading}
+        Appppp is loading
+      </div>
+    );
+  }
+
   if (!user.username) {
     return (
       <div className="home">
         <h1 className="home__header">Pinger. . . .</h1>
+        {authLoading}
         <div className="home__greet">{user?.name}</div>
         {user?.name ? (
           <button className="home__auth__loginBtn" onClick={() => logout()}>

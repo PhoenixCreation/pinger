@@ -6,7 +6,7 @@ import "../css/Helper/CreateServer.css";
 
 function CreateServer() {
   const { user } = useContext(UserContext);
-  const { createServer } = useContext(ServerContext);
+  const { createServer, addUserToServer } = useContext(ServerContext);
 
   const history = useHistory();
 
@@ -23,8 +23,17 @@ function CreateServer() {
       console.log(data);
       history.push("/");
     });
-
     console.log("create server", newServer);
+  };
+
+  const [addServerId, setAddServerId] = useState("");
+  const [addUserId, setAddUserId] = useState("");
+
+  const AddUser = (e) => {
+    e.preventDefault();
+    addUserToServer(addServerId, addUserId);
+    setAddServerId("");
+    setAddUserId("");
   };
 
   return (
@@ -59,6 +68,23 @@ function CreateServer() {
             placeholder="Poster link for your server"
           />
           <button type="submit">Create server</button>
+        </form>
+      </div>
+      <div className="adduser__from__cont">
+        <form onSubmit={AddUser}>
+          <input
+            type="text"
+            value={addServerId}
+            onChange={(e) => setAddServerId(e.target.value)}
+            placeholder="Server Id"
+          />
+          <input
+            type="text"
+            value={addUserId}
+            onChange={(e) => setAddUserId(e.target.value)}
+            placeholder="User Id"
+          />
+          <button type="submit">Add user</button>
         </form>
       </div>
     </div>

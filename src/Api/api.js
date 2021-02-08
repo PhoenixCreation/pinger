@@ -49,3 +49,15 @@ export const requestCreateServer = async (newServer) => {
     return -1;
   }
 };
+
+export const reuestAddUserToServer = async (server_id, user_id) => {
+  try {
+    const response = await axios.post(`${URL}/server/adduser`, {
+      server_id,
+      user_id,
+    });
+    return response.data;
+  } catch (error) {
+    console.log("Front end api call error", error);
+  }
+};

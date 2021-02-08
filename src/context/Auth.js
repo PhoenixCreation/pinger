@@ -5,6 +5,7 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [user, setUser] = useState({});
+  const [authLoading, setAuthLoading] = useState(false);
 
   const login = async (username, password) => {
     requestLogin(username, password).then((data) => {
@@ -36,16 +37,18 @@ export const UserProvider = (props) => {
   };
 
   const getUser = (u_token) => {
+    setAuthLoading(true);
     requestUser(u_token).then((data) => {
       if (data.user) {
         setUser(data.user);
+        setAuthLoading(false);
       }
     });
   };
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, login, signup, logout, getUser }}
+      value={{ user, setUser, login, signup, logout, getUser, authLoading }}
     >
       {props.children}
     </UserContext.Provider>
