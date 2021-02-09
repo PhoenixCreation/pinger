@@ -26,19 +26,28 @@ function CreateServer() {
     console.log("create server", newServer);
   };
 
-  const [addServerId, setAddServerId] = useState("");
-  const [addUserId, setAddUserId] = useState("");
+  // ***This is for adding user to server with serverId and userid.... can be used in other component
+  //    as a invite of server component
+  // ***
+  // const [addServerId, setAddServerId] = useState("");
+  // const [addUserId, setAddUserId] = useState("");
 
-  const AddUser = (e) => {
-    e.preventDefault();
-    addUserToServer(addServerId, addUserId);
-    setAddServerId("");
-    setAddUserId("");
-  };
+  // const AddUser = (e) => {
+  //   e.preventDefault();
+  //   addUserToServer(addServerId, addUserId);
+  //   setAddServerId("");
+  //   setAddUserId("");
+  // };
 
   return (
     <div className="create__server">
       <div className="cs__form__cont">
+        <div className="cs__form__heading">
+          <div className="cs__form__headingText">Create an Amazing server</div>
+          <div className="cs__form__goback" onClick={() => history.goBack()}>
+            {"X"}
+          </div>
+        </div>
         <form onSubmit={formSubmit} className="cs__form">
           <input
             type="text"
@@ -48,6 +57,8 @@ function CreateServer() {
               setNewServer({ ...newServer, server_name: e.target.value })
             }
             placeholder="Name of your server"
+            className="cs__form__field"
+            required
           />
           <input
             type="text"
@@ -57,6 +68,8 @@ function CreateServer() {
               setNewServer({ ...newServer, server_icon: e.target.value })
             }
             placeholder="Icon link for your server"
+            className="cs__form__field"
+            required
           />
           <input
             type="text"
@@ -66,11 +79,15 @@ function CreateServer() {
               setNewServer({ ...newServer, server_poster: e.target.value })
             }
             placeholder="Poster link for your server"
+            className="cs__form__field"
+            required
           />
-          <button type="submit">Create server</button>
+          <button type="submit" className="cs__form__submit">
+            Create server
+          </button>
         </form>
       </div>
-      <div className="adduser__from__cont">
+      {/* <div className="adduser__from__cont">
         <form onSubmit={AddUser}>
           <input
             type="text"
@@ -86,7 +103,7 @@ function CreateServer() {
           />
           <button type="submit">Add user</button>
         </form>
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -1,5 +1,9 @@
 import React, { useState, createContext, useEffect, useContext } from "react";
-import { requestCreateServer, reuestAddUserToServer } from "../Api/api";
+import {
+  requestCreateServer,
+  reuestAddUserToServer,
+  requestServersOfUser,
+} from "../Api/api";
 import { UserContext } from "./Auth";
 
 export const ServerContext = createContext();
@@ -142,31 +146,22 @@ export const ServerProvider = (props) => {
   const [chats, setChats] = useState(chatsDemo);
   const [serverLoading, setserverLoading] = useState(false);
 
-  // Remove this ASAP.........//////.......
   useEffect(() => {
-    // setTimeout(() => {
-    //   setserverLoading(false);
-    // }, 3000);
-    if (user.token) {
+    if (user.token && user.token.length > 1) {
       console.log("Start requesting servers....");
+      setserverLoading(true);
+      requestServersOfUser(user.token).then((data) => {
+        console.log(data);
+        setAllServers(data.servers);
+        setCrntServer(data.servers[0]);
+        setserverLoading(false);
+      });
     }
   }, [user]);
 
   useEffect(() => {
     //Remove this.... this is temporary... remov when connect to database
-    setChats([
-      ...chats,
-      {
-        ...chats[0],
-        id: Math.random() * 1000,
-        sender: {
-          username: "bob",
-          avatar_url: `https://picsum.photos/40/40?random=${Math.floor(
-            Math.random() * 1000
-          )}`,
-        },
-      },
-    ]);
+    console.log("Add some chats depending upon the current channel");
   }, [crntChannel]);
 
   const createServer = async (newServer) => {

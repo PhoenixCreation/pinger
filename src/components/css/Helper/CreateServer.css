@@ -1,0 +1,65 @@
+.create__server {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
+}
+.cs__form__cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid aliceblue;
+  padding: 20px;
+  border-radius: 15px;
+}
+.cs__form__heading {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.cs__form__headingText {
+  flex: 1;
+}
+.cs__form__goback {
+  cursor: pointer;
+}
+.cs__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cs__form__field {
+  all: initial;
+  color: aliceblue;
+  padding: 10px;
+  border: 2px solid grey;
+  width: 450px;
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+.cs__form__field:hover {
+  border-color: #afafaf;
+}
+.cs__form__field:focus {
+  border-color: aliceblue;
+}
+.cs__form__submit {
+  all: initial;
+  cursor: pointer;
+  padding: 10px;
+  border: 2px solid aliceblue;
+  background-color: #7269de;
+  font-size: 17px;
+  color: aliceblue;
+  margin: 10px;
+  border-radius: 10px;
+}

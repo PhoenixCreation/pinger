@@ -126,7 +126,7 @@
   position: relative;
 }
 .serverbar__server:last-child {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 .serverbar__server:hover .server__icon {
   /* transform: translateY(-5px); */
@@ -140,6 +140,8 @@
   height: 120%;
   transition: all 0.2s linear;
   border-radius: 30px;
+  border: 1px solid grey;
+  background-color: #232323;
 }
 .serverbar__addserver {
   flex: 1;

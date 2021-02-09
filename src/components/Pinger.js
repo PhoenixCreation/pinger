@@ -245,7 +245,7 @@ export default function Pinger() {
         <Chat />
       </div>
       <div className="pinger__usersbar">
-        {Array.isArray(crntServer.users) && (
+        {Array.isArray(crntServer.users) && crntServer.users.username && (
           <>
             <div className="userbar__onlineusers">
               <div className="userbar__onlineuserText">

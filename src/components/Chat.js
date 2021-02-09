@@ -30,7 +30,6 @@ function Chat() {
 
   useEffect(() => {
     chatContainer?.current.scrollTo(0, chatContainer.current.scrollTopMax);
-    console.log("object");
   }, [chats]);
 
   return (

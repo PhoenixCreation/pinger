@@ -61,3 +61,13 @@ export const reuestAddUserToServer = async (server_id, user_id) => {
     console.log("Front end api call error", error);
   }
 };
+
+export const requestServersOfUser = async (u_token) => {
+  try {
+    const response = await axios.post(`${URL}/server/get`, { u_token });
+    return response.data;
+  } catch (error) {
+    console.log("reqestServersOfUser - frontend api call ", error);
+    return -1;
+  }
+};
