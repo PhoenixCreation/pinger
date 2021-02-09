@@ -1,0 +1,118 @@
+.AppIsLoading {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  position: relative;
+  overflow: hidden;
+}
+.waves {
+  position: absolute;
+  bottom: 0px;
+  left: 0%;
+  width: 100%;
+  height: 30%;
+  overflow: hidden;
+  transition: 2s transform ease;
+  /* transform-origin: bottom center; */
+}
+.wave__bottom__background {
+  position: absolute;
+  bottom: 0;
+  height: 21%;
+  width: 100%;
+  background-color: #59d4ff;
+}
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: wave 1.4s linear infinite;
+}
+
+.wave-light {
+  z-index: 1;
+  color: #59d4ff;
+}
+
+.water {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+}
+
+.water svg {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 99.9%;
+}
+
+.water:first-of-type {
+  transform: translate(-100%, 0);
+}
+
+svg {
+  fill: currentColor;
+}
+@keyframes wave {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* Text Animation */
+.animated__path {
+  stroke-dashoffset: 800;
+  animation: textAnim 3s linear infinite alternate;
+}
+@keyframes textAnim {
+  0% {
+    stroke-dashoffset: 700;
+  }
+  50% {
+    stroke-dashoffset: 940;
+  }
+  100% {
+    stroke-dashoffset: 1000;
+  }
+}
+
+/* IsSomethingWrong? */
+.IsSomethingWrongCont {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  transform: translateX(100%);
+  animation: somethingiswrong 1.5s linear 20s;
+  animation-fill-mode: forwards;
+}
+@keyframes somethingiswrong {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.mail_link {
+  all: initial;
+  cursor: pointer;
+  color: aliceblue;
+  margin: 5px;
+}

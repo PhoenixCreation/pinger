@@ -144,7 +144,7 @@ export const ServerProvider = (props) => {
   const [crntServer, setCrntServer] = useState(allServers[0]);
   const [crntChannel, setCrntChannel] = useState(crntServer.channels.text[0]);
   const [chats, setChats] = useState(chatsDemo);
-  const [serverLoading, setserverLoading] = useState(false);
+  const [serverLoading, setserverLoading] = useState(true);
 
   useEffect(() => {
     if (user.token && user.token.length > 1) {
@@ -152,8 +152,11 @@ export const ServerProvider = (props) => {
       setserverLoading(true);
       requestServersOfUser(user.token).then((data) => {
         console.log(data);
-        setAllServers(data.servers);
-        setCrntServer(data.servers[0]);
+        if (data.servers.length > 0) {
+          setAllServers(data.servers);
+
+          setCrntServer(data.servers[0]);
+        }
         setserverLoading(false);
       });
     }

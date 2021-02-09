@@ -10,6 +10,7 @@ import HeadsetIcon from "@material-ui/icons/Headset";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import "./css/Pinger.css";
 import Chat from "./Chat";
+import ServerLoading from "./Helpers/ServerLoading";
 
 export default function Pinger() {
   const { user, logout } = useContext(UserContext);
@@ -39,7 +40,11 @@ export default function Pinger() {
   // }
 
   if (serverLoading) {
-    return <div className="AppIsLoading">Loading your amazing servers</div>;
+    return <ServerLoading />;
+  }
+
+  if (!crntServer) {
+    history.push("/create/server");
   }
 
   return (
