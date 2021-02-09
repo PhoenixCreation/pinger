@@ -8,6 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 import SettingsVoiceIcon from "@material-ui/icons/SettingsVoice";
 import HeadsetIcon from "@material-ui/icons/Headset";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import HowToRegIcon from "@material-ui/icons/HowToReg";
 import "./css/Pinger.css";
 import Chat from "./Chat";
 import ServerLoading from "./Helpers/ServerLoading";
@@ -250,7 +251,7 @@ export default function Pinger() {
         <Chat />
       </div>
       <div className="pinger__usersbar">
-        {Array.isArray(crntServer.users) && crntServer.users.username && (
+        {Array.isArray(crntServer.users) && (
           <>
             <div className="userbar__onlineusers">
               <div className="userbar__onlineuserText">
@@ -267,6 +268,8 @@ export default function Pinger() {
                 if (user.status === "offline") {
                   return null;
                 }
+
+                const isOwner = crntServer?.owner_id === user.token;
 
                 return (
                   <div className="userbar__user" key={index + user.username}>
@@ -290,6 +293,7 @@ export default function Pinger() {
                         {user.presence}
                       </div>
                     </div>
+                    {isOwner && <HowToRegIcon />}
                   </div>
                 );
               })}
@@ -310,6 +314,8 @@ export default function Pinger() {
                   return null;
                 }
 
+                const isOwner = crntServer?.owner_id === user.token;
+
                 return (
                   <div className="userbar__user" key={index + user.username}>
                     <div className="userbar__avatar__cont">
@@ -328,10 +334,20 @@ export default function Pinger() {
                         {user.presence}
                       </div>
                     </div>
+                    {isOwner && <HowToRegIcon />}
                   </div>
                 );
               })}
             </div>
+            {crntServer?.owner_id === user.token && (
+              <div className="userbar__addUser">
+                Want to add some friends or colleges? ask them to join through
+                this link:
+                <div className="linkToJoin">
+                  {window.location.href + "join/server/" + crntServer.id}
+                </div>
+              </div>
+            )}
           </>
         )}
       </div>

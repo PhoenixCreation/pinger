@@ -265,6 +265,7 @@
   align-items: center;
   color: grey;
   cursor: pointer;
+  height: 40px;
 }
 .channels__textchannels_toogler:hover {
   color: aliceblue;
@@ -559,4 +560,8 @@
 }
 .userbar__user:hover .userbar__user__presence {
   max-height: none;
+}
+.linkToJoin {
+  width: 100%;
+  word-break: break-all;
 }

@@ -10,6 +10,7 @@ import Signup from "./components/auth/Signup";
 import Home from "./components/Home";
 import Pinger from "./components/Pinger";
 import CreateServer from "./components/Helpers/CreateServer";
+import JoinServer from "./components/Helpers/JoinServer";
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
               </Route>
               <Route path="/create/server" exact>
                 <CreateServer />
+              </Route>
+              <Route path="/join/server/:server_id" exact>
+                <JoinServer />
               </Route>
               <Route path="/phoenix/secretpath" exact>
                 <Pinger />

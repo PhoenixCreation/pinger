@@ -50,10 +50,10 @@ const ServerLoading = () => {
           mask="url(#prefix__a)"
         />
       </svg>
-      <div class="waves">
+      <div className="waves">
         <div className="wave__bottom__background"></div>
-        <div class="wave wave-light">
-          <div class="water">
+        <div className="wave wave-light">
+          <div className="water">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 350 32"
@@ -62,7 +62,7 @@ const ServerLoading = () => {
               <path d="M350,17.32V32H0V17.32C116.56,65.94,175-39.51,350,17.32Z"></path>
             </svg>
           </div>
-          <div class="water">
+          <div className="water">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 350 32"

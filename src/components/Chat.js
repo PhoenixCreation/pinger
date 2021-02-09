@@ -34,7 +34,7 @@ function Chat() {
 
   return (
     <div className="chat">
-      <div className="messages__cont" ref={chatContainer} id="het">
+      <div className="messages__cont" ref={chatContainer}>
         {chats.map((chat, index) => {
           const isDiffrentDate =
             index === 0 ||

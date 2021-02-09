@@ -184,15 +184,15 @@ export const ServerProvider = (props) => {
     newServer.boosted = false;
     requestCreateServer(newServer).then((data) => {
       console.log("context call data reciver", data);
-      setAllServers((pastAllServers) => {
-        return [...pastAllServers, data];
-      });
       data.channels.text = Object.keys(data.channels.text).map(
         (key) => data.channels.text[key]
       );
       data.channels.voice = Object.keys(data.channels.voice).map(
         (key) => data.channels.voice[key]
       );
+      setAllServers((pastAllServers) => {
+        return [...pastAllServers, data];
+      });
       setCrntServer(data);
     });
   };
