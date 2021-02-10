@@ -22,7 +22,8 @@ export default function Pinger() {
     setCrntServer,
     crntChannel,
     setCrntChannel,
-    addChannel,
+    addTextChannel,
+    addVoiceChannel,
   } = useContext(ServerContext);
   const history = useHistory();
 
@@ -30,10 +31,19 @@ export default function Pinger() {
   const [showVoiceChannels, setShowVoiceChannels] = useState(true);
   const [showAddTextChannel, setShowAddTextChannel] = useState(false);
   const [addTextChannelName, setAddTextChannelName] = useState("");
+  const [showAddVoiceChannel, setShowAddVoiceChannel] = useState(false);
+  const [addVoiceChannelName, setAddVoiceChannelName] = useState("");
 
-  const AddChannelToServer = (server_id, channel_name) => {
-    addChannel(server_id, channel_name);
+  const AddTextChannelToServer = (server_id, channel_name) => {
+    addTextChannel(server_id, channel_name);
     setShowAddTextChannel(false);
+    setAddTextChannelName("");
+  };
+
+  const AddVoiceChannelToServer = (server_id, channel_name) => {
+    addVoiceChannel(server_id, channel_name);
+    setShowAddVoiceChannel(false);
+    setAddVoiceChannelName("");
   };
 
   if (serverLoading) {
@@ -93,7 +103,7 @@ export default function Pinger() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                AddChannelToServer(crntServer.id, addTextChannelName);
+                AddTextChannelToServer(crntServer.id, addTextChannelName);
               }}
               className="pinger__addTextChannel__form"
             >
@@ -111,6 +121,35 @@ export default function Pinger() {
             <div
               className="closeTextAdd"
               onClick={() => setShowAddTextChannel(false)}
+            >
+              X
+            </div>
+          </div>
+        )}
+        {showAddVoiceChannel && (
+          <div className="pinger__addTextChannel__cont">
+            <div className="channel__type">Add voice channel</div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                AddVoiceChannelToServer(crntServer.id, addVoiceChannelName);
+              }}
+              className="pinger__addTextChannel__form"
+            >
+              <input
+                type="text"
+                value={addVoiceChannelName}
+                onChange={(e) => setAddVoiceChannelName(e.target.value)}
+                className="pinger__addTextChannel__field"
+                placeholder="voice channel name"
+              />
+              <button type="submit" className="pinger__addTextChannel__add">
+                Add
+              </button>
+            </form>
+            <div
+              className="closeTextAdd"
+              onClick={() => setShowAddVoiceChannel(false)}
             >
               X
             </div>
@@ -202,7 +241,12 @@ export default function Pinger() {
                     Voice Channels
                   </div>
                 </div>
-                <div className="channels__textchannels_tooglerAdd">+</div>
+                <div
+                  className="channels__textchannels_tooglerAdd"
+                  onClick={() => setShowAddVoiceChannel(true)}
+                >
+                  +
+                </div>
               </div>
               {crntServer.channels.voice.map((channel, index) => {
                 const isActive = crntChannel === channel;

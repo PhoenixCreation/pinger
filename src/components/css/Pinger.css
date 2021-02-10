@@ -333,7 +333,6 @@
   margin-right: 5px;
 }
 .textchannel__name {
-  text-transform: capitalize;
   flex: 1;
 }
 .textchannel__addIcon {

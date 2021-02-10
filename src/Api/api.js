@@ -72,9 +72,22 @@ export const requestServersOfUser = async (u_token) => {
   }
 };
 
-export const requestAddChannel = async (server_id, channel_name) => {
+export const requestAddTextChannel = async (server_id, channel_name) => {
   try {
     const response = await axios.post(`${URL}/channel/text/add`, {
+      server_id,
+      channel_name,
+    });
+    return response.data;
+  } catch (error) {
+    console.log("Frontend api call => ", error);
+    return null;
+  }
+};
+
+export const requestAddVoiceChannel = async (server_id, channel_name) => {
+  try {
+    const response = await axios.post(`${URL}/channel/voice/add`, {
       server_id,
       channel_name,
     });
