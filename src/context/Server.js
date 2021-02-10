@@ -3,6 +3,7 @@ import {
   requestCreateServer,
   reuestAddUserToServer,
   requestServersOfUser,
+  requestAddChannel,
 } from "../Api/api";
 import { UserContext } from "./Auth";
 
@@ -217,6 +218,31 @@ export const ServerProvider = (props) => {
     }
   }, [crntServer]);
 
+  const addChannel = async (server_id, channel_name) => {
+    try {
+      if (server_id === "" || channel_name === "") {
+        return -1;
+      } else {
+        requestAddChannel(server_id, channel_name).then((data) => {
+          if (user.token && user.token.length > 1) {
+            console.log("Start requesting servers....");
+            requestServersOfUser(user.token).then((data) => {
+              console.log(data);
+              if (data.servers.length > 0) {
+                setAllServers(data.servers);
+
+                setCrntServer(data.servers[0]);
+              }
+            });
+          }
+          return data;
+        });
+      }
+    } catch (error) {
+      console.log("Server context: => ", error);
+    }
+  };
+
   return (
     <ServerContext.Provider
       value={{
@@ -230,6 +256,7 @@ export const ServerProvider = (props) => {
         createServer,
         addUserToServer,
         serverLoading,
+        addChannel,
       }}
     >
       {props.children}

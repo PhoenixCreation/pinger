@@ -71,3 +71,16 @@ export const requestServersOfUser = async (u_token) => {
     return -1;
   }
 };
+
+export const requestAddChannel = async (server_id, channel_name) => {
+  try {
+    const response = await axios.post(`${URL}/channel/text/add`, {
+      server_id,
+      channel_name,
+    });
+    return response.data;
+  } catch (error) {
+    console.log("Frontend api call => ", error);
+    return null;
+  }
+};

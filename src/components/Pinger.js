@@ -22,23 +22,19 @@ export default function Pinger() {
     setCrntServer,
     crntChannel,
     setCrntChannel,
+    addChannel,
   } = useContext(ServerContext);
   const history = useHistory();
 
   const [showTextChannels, setShowTextChannels] = useState(true);
   const [showVoiceChannels, setShowVoiceChannels] = useState(true);
+  const [showAddTextChannel, setShowAddTextChannel] = useState(false);
+  const [addTextChannelName, setAddTextChannelName] = useState("");
 
-  // if (servers.length === 0) {
-  //   return (
-  //     <div
-  //       className="app__loading"
-  //       style={{ color: "aliceblue" }}
-  //       onClick={() => history.push("/create/server")}
-  //     >
-  //       Loading some good stuff.....
-  //     </div>
-  //   );
-  // }
+  const AddChannelToServer = (server_id, channel_name) => {
+    addChannel(server_id, channel_name);
+    setShowAddTextChannel(false);
+  };
 
   if (serverLoading) {
     return <ServerLoading />;
@@ -91,6 +87,36 @@ export default function Pinger() {
         </div>
       </div>
       <div className="pinger__channelbar">
+        {showAddTextChannel && (
+          <div className="pinger__addTextChannel__cont">
+            <div className="channel__type">Add Text channel</div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                AddChannelToServer(crntServer.id, addTextChannelName);
+              }}
+              className="pinger__addTextChannel__form"
+            >
+              <input
+                type="text"
+                value={addTextChannelName}
+                onChange={(e) => setAddTextChannelName(e.target.value)}
+                className="pinger__addTextChannel__field"
+                placeholder="Text channel name"
+              />
+              <button type="submit" className="pinger__addTextChannel__add">
+                Add
+              </button>
+            </form>
+            <div
+              className="closeTextAdd"
+              onClick={() => setShowAddTextChannel(false)}
+            >
+              X
+            </div>
+          </div>
+        )}
+
         <div className="chanels__main">
           <div className="channelbar__poster">
             <img
@@ -120,7 +146,12 @@ export default function Pinger() {
                     Text Channels
                   </div>
                 </div>
-                <div className="channels__textchannels_tooglerAdd">+</div>
+                <div
+                  className="channels__textchannels_tooglerAdd"
+                  onClick={() => setShowAddTextChannel(true)}
+                >
+                  +
+                </div>
               </div>
               {crntServer.channels.text.map((channel, index) => {
                 const isActive = crntChannel === channel;
