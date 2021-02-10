@@ -28,9 +28,9 @@ function Chat() {
     console.log(crntMessage);
   };
 
-  useEffect(() => {
-    chatContainer?.current.scrollTo(0, chatContainer.current.scrollTopMax);
-  }, [chats]);
+  // useEffect(() => {
+  //   chatContainer?.current.scrollTo(0, chatContainer.current.scrollTopMax);
+  // }, [chats]);
 
   return (
     <div className="chat">
