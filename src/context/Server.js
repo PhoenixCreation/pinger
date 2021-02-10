@@ -206,7 +206,9 @@ export const ServerProvider = (props) => {
     ) {
       return -1;
     }
-    reuestAddUserToServer(server_id, user_id);
+    reuestAddUserToServer(server_id, user_id).then((data) => {
+      return 1;
+    });
   };
 
   useEffect(() => {

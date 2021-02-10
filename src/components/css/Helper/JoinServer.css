@@ -1,0 +1,54 @@
+.JoinServer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
+}
+.serverInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px solid aliceblue;
+  border-radius: 15px;
+}
+.server__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+.server__icon__js {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  border: 2px solid grey;
+  overflow: hidden;
+}
+.server__icon__js img {
+  width: 100%;
+  height: 100%;
+}
+.server__name {
+  font-size: 28px;
+  margin-left: 15px;
+}
+.server__channels {
+  font-size: 20px;
+  margin: 10px;
+}
+.server__users {
+  font-size: 22px;
+  margin: 10px;
+}
+.join__server {
+  padding: 10px;
+  border: 2px solid aliceblue;
+  border-radius: 5px;
+  background-color: #6645f5;
+  margin: 10px;
+  cursor: pointer;
+}
