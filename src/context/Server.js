@@ -164,11 +164,6 @@ export const ServerProvider = (props) => {
     }
   }, [user]);
 
-  useEffect(() => {
-    //Remove this.... this is temporary... remov when connect to database
-    console.log("Add some chats depending upon the current channel");
-  }, [crntChannel]);
-
   const createServer = async (newServer) => {
     if (newServer.server_name === "" || newServer.server_name === null) {
       return -1;

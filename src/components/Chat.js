@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { formatDistance, format } from "date-fns";
 import { ServerContext } from "../context/Server";
-
+import { URL } from "../Api/api";
+import axios from "axios";
 import AddIcon from "@material-ui/icons/Add";
 import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
 import GifIcon from "@material-ui/icons/Gif";
@@ -11,11 +12,38 @@ import { formatRelative } from "date-fns/esm";
 
 const chatUserColors = ["pink", "orange", "#ffdsb9", "#d80709"];
 
+const skeleton_chat = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
 function Chat() {
   const { crntChannel, chats } = useContext(ServerContext);
   const chatContainer = useRef();
 
   const [crntMessage, setCrntMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (crntChannel && crntChannel.channel_name) {
+      setLoading(true);
+      requestChat();
+    }
+  }, [crntChannel]);
+
+  const requestChat = async () => {
+    // try {
+    //   const response = await axios.post(`${URL}/chat/getchannelref`, {});
+    //   if (response.status === 201) {
+    //     const channelRef = response.data.channelRef;
+    //     console.log("channelRef from backend => ", channelRef);
+    //     const channelDataRef = await channelRef.get();
+    //     const channelData = channelDataRef.data();
+    //     console.log(channelData);
+    //     setLoading(false);
+    //   }
+    //   setLoading(false);
+    // } catch (error) {
+    //   console.log("Frontend requestchat => ", error);
+    // }
+  };
 
   const handleChangeCrntMessage = (e) => {
     setCrntMessage(e.target.value);
@@ -31,6 +59,42 @@ function Chat() {
   // useEffect(() => {
   //   chatContainer?.current.scrollTo(0, chatContainer.current.scrollTopMax);
   // }, [chats]);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //   }, 4000);
+  // }, []);
+
+  if (loading) {
+    return (
+      <div className="chat">
+        <div className="chat__skeleton__cont">
+          {skeleton_chat.map((schat, index) => {
+            return (
+              <div className="skeleton__chat" key={index}>
+                <div
+                  className="skeleton__chat__avatar"
+                  style={{ animationDelay: index / 10 + "s" }}
+                ></div>
+                <div className="skeleton__chat__right">
+                  <div
+                    className="skeleton__chat__user"
+                    style={{
+                      animationDelay: index / 10 - 1 + Math.random() + "s",
+                    }}
+                  ></div>
+                  <div className="skeleton__chat__message"></div>
+                  <div className="skeleton__chat__message"></div>
+                  <div className="skeleton__chat__message"></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="chat">
