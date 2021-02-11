@@ -142,9 +142,9 @@ let serverDemo = [
 export const ServerProvider = (props) => {
   const { user } = useContext(UserContext);
 
-  const [allServers, setAllServers] = useState(serverDemo);
-  const [crntServer, setCrntServer] = useState(allServers[0]);
-  const [crntChannel, setCrntChannel] = useState(crntServer.channels.text[0]);
+  const [allServers, setAllServers] = useState([]);
+  const [crntServer, setCrntServer] = useState({});
+  const [crntChannel, setCrntChannel] = useState({});
   const [chats, setChats] = useState(chatsDemo);
   const [serverLoading, setserverLoading] = useState(true);
 
@@ -181,16 +181,14 @@ export const ServerProvider = (props) => {
     newServer.boosted = false;
     requestCreateServer(newServer).then((data) => {
       console.log("context call data reciver", data);
-      data.channels.text = Object.keys(data.channels.text).map(
-        (key) => data.channels.text[key]
-      );
-      data.channels.voice = Object.keys(data.channels.voice).map(
-        (key) => data.channels.voice[key]
-      );
-      setAllServers((pastAllServers) => {
-        return [...pastAllServers, data];
+      requestServersOfUser(user.token).then((data2) => {
+        console.log(data2);
+        if (data2.servers.length > 0) {
+          setAllServers(data2.servers);
+          setCrntServer(data2.servers[0]);
+        }
+        setserverLoading(false);
       });
-      setCrntServer(data);
     });
   };
 

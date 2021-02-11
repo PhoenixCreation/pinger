@@ -35,9 +35,6 @@ function App() {
               <Route path="/join/server/:server_id" exact>
                 <JoinServer />
               </Route>
-              <Route path="/phoenix/secretpath" exact>
-                <Pinger />
-              </Route>
             </Switch>
           </Router>
         </ServerProvider>

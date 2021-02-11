@@ -130,10 +130,10 @@
 }
 .serverbar__server:hover .server__icon {
   /* transform: translateY(-5px); */
-  border-radius: 20px;
+  border-radius: 15px;
 }
 .serverbar__server.active .server__icon {
-  border-radius: 20px;
+  border-radius: 10px;
 }
 .server__icon {
   width: 100%;

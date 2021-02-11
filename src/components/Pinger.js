@@ -50,8 +50,32 @@ export default function Pinger() {
     return <ServerLoading />;
   }
 
-  if (!crntServer) {
-    history.push("/create/server");
+  if (!Array.isArray(crntServer?.channels?.text)) {
+    return (
+      <div
+        className="ch"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: "100%",
+          flexDirection: "column",
+        }}
+      >
+        <div className="advice1">Welcome to the Pinger....</div>
+        <div className="advice2">
+          You have to join a server with link or better...
+        </div>
+        <div
+          className="link"
+          onClick={() => history.push("/create/server")}
+          style={{ cursor: "pointer" }}
+        >
+          Create your server here.
+        </div>
+      </div>
+    );
   }
 
   return (

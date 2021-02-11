@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
+import firebase from "firebase";
 import { formatDistance, format } from "date-fns";
 import { ServerContext } from "../context/Server";
 import { URL } from "../Api/api";
@@ -22,27 +23,26 @@ function Chat() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (crntChannel && crntChannel.channel_name) {
-      setLoading(true);
-      requestChat();
-    }
-  }, [crntChannel]);
+    requestInitializeApp();
+  }, []);
 
-  const requestChat = async () => {
-    // try {
-    //   const response = await axios.post(`${URL}/chat/getchannelref`, {});
-    //   if (response.status === 201) {
-    //     const channelRef = response.data.channelRef;
-    //     console.log("channelRef from backend => ", channelRef);
-    //     const channelDataRef = await channelRef.get();
-    //     const channelData = channelDataRef.data();
-    //     console.log(channelData);
-    //     setLoading(false);
-    //   }
-    //   setLoading(false);
-    // } catch (error) {
-    //   console.log("Frontend requestchat => ", error);
-    // }
+  const requestInitializeApp = async () => {
+    try {
+      const response = await axios.post(`${URL}/chat/getchannelref`, {});
+      if (response.status === 201) {
+        const app = response.data.app;
+        firebase.initializeApp(app);
+        const db = firebase.firestore();
+        const docRef = db
+          .collection("channels")
+          .doc("979a8e96-4f22-4a84-92b6-431b96223b4f-general");
+        const doc = await docRef.get();
+        console.log(doc.data());
+      }
+      setLoading(false);
+    } catch (error) {
+      console.log("Frontend requestchat => ", error);
+    }
   };
 
   const handleChangeCrntMessage = (e) => {

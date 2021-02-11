@@ -69,7 +69,6 @@ function CreateServer() {
             }
             placeholder="Icon link for your server"
             className="cs__form__field"
-            required
           />
           <input
             type="text"
@@ -80,7 +79,6 @@ function CreateServer() {
             }
             placeholder="Poster link for your server"
             className="cs__form__field"
-            required
           />
           <button type="submit" className="cs__form__submit">
             Create server
