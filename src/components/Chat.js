@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import firebase from "firebase";
 import { formatDistance, format } from "date-fns";
 import { ServerContext } from "../context/Server";
+import { UserContext } from "../context/Auth";
 import { URL } from "../Api/api";
 import axios from "axios";
 import AddIcon from "@material-ui/icons/Add";
@@ -15,31 +16,52 @@ const chatUserColors = ["pink", "orange", "#ffdsb9", "#d80709"];
 
 const skeleton_chat = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+let db;
+let unsubscribe;
+
 function Chat() {
+  const { user } = useContext(UserContext);
   const { crntChannel, chats } = useContext(ServerContext);
   const chatContainer = useRef();
 
+  const [chatArray, setChatArray] = useState([]);
   const [crntMessage, setCrntMessage] = useState("");
   const [loading, setLoading] = useState(true);
+  const [crntChats, setCrntChats] = useState({});
 
   useEffect(() => {
+    setLoading(true);
     requestInitializeApp();
-  }, []);
+  }, [crntChannel]);
+
+  useEffect(() => {
+    let tempchats = Object.keys(crntChats).map((key) => crntChats[key]);
+    setChatArray(tempchats);
+  }, [crntChats]);
 
   const requestInitializeApp = async () => {
     try {
       const response = await axios.post(`${URL}/chat/getchannelref`, {});
       if (response.status === 201) {
         const app = response.data.app;
-        firebase.initializeApp(app);
-        const db = firebase.firestore();
-        const docRef = db
-          .collection("channels")
-          .doc("979a8e96-4f22-4a84-92b6-431b96223b4f-general");
-        const doc = await docRef.get();
-        console.log(doc.data());
+        if (firebase.apps.length === 0) {
+          firebase.initializeApp(app);
+        }
+        db = firebase.firestore();
+        const docRef = db.collection("channels").doc(crntChannel.channel_id);
+        if (unsubscribe) {
+          unsubscribe();
+        }
+        unsubscribe = docRef.onSnapshot((snapshot) => {
+          console.log(snapshot.data());
+          setCrntChats(snapshot.data().chats);
+          setLoading(false);
+          chatContainer?.current.scrollTo(
+            0,
+            chatContainer.current.scrollTopMax
+          );
+        });
       }
-      setLoading(false);
     } catch (error) {
       console.log("Frontend requestchat => ", error);
     }
@@ -52,7 +74,29 @@ function Chat() {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     setCrntMessage("");
-    // TODO: send a message
+    if (db) {
+      const chatCount = Object.keys(crntChats).length;
+      db.collection("channels")
+        .doc(crntChannel.channel_id)
+        .update({
+          chats: {
+            ...crntChats,
+            [chatCount]: {
+              type: "text",
+              attachments: [],
+              edited: false,
+              id: `${crntChannel.channel_id}-${chatCount}`,
+              message: crntMessage,
+              timestamp: new Date().toString(),
+              sender: {
+                u_token: user.token,
+                username: user.username,
+                avatar_url: user.avatar_url,
+              },
+            },
+          },
+        });
+    }
     console.log(crntMessage);
   };
 
@@ -68,7 +112,7 @@ function Chat() {
 
   if (loading) {
     return (
-      <div className="chat">
+      <div className="chat" style={{ overflow: "hidden" }}>
         <div className="chat__skeleton__cont">
           {skeleton_chat.map((schat, index) => {
             return (
@@ -99,14 +143,14 @@ function Chat() {
   return (
     <div className="chat">
       <div className="messages__cont" ref={chatContainer}>
-        {chats.map((chat, index) => {
+        {chatArray.map((chat, index) => {
           const isDiffrentDate =
             index === 0 ||
             new Date(chat.timestamp).getDate() !==
-              new Date(chats[index - 1].timestamp).getDate();
+              new Date(chatArray[index - 1].timestamp).getDate();
           const isFirstMsgByUser =
             index === 0 ||
-            chat.sender.username !== chats[index - 1].sender.username;
+            chat.sender.username !== chatArray[index - 1].sender.username;
           const randomColorIndex = Math.floor(
             Math.random() * chatUserColors.length
           );
@@ -128,7 +172,7 @@ function Chat() {
                   />
                 ) : (
                   <div className="message__second__time">
-                    {format(chat.timestamp, "HH ' : ' mm")}
+                    {format(new Date(chat.timestamp), "HH ' : ' mm")}
                   </div>
                 )}
               </div>
@@ -142,7 +186,7 @@ function Chat() {
                       {chat.sender.username}
                     </div>
                     <div className="message__timestamp">
-                      {formatDistance(chat.timestamp, new Date(), {
+                      {formatDistance(new Date(chat.timestamp), new Date(), {
                         includeSeconds: true,
                         addSuffix: true,
                       })}

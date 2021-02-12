@@ -74,7 +74,7 @@
 }
 .messages__cont {
   overflow-y: scroll;
-  height: calc(100% - 80px);
+  height: calc(100% - 125px);
   padding-top: 50px;
   opacity: 0;
   animation: fadein 1s linear;
