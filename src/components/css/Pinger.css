@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   width: 70px;
+  min-width: 70px;
   background-color: #2f3136;
   border-right: 1px solid #a9a9a988;
   overflow-y: scroll;
@@ -19,6 +20,7 @@
 .pinger__channelbar {
   position: relative;
   width: 250px;
+  min-width: 200px;
   background-color: #2f3136;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -40,13 +42,17 @@
 }
 .pinger__chatbar {
   flex: 1;
+  overflow-y: scroll;
+  position: relative;
   background-color: #36393f;
+  scrollbar-width: none;
 }
 .pinger__usersbar {
   width: 250px;
+  min-width: 200px;
   background-color: #2f312f;
   opacity: 0;
-  animation: fadein 1s linear 3s;
+  animation: fadein 1s linear;
   animation-fill-mode: forwards;
 }
 
@@ -189,6 +195,15 @@
   height: 100%;
   border-radius: 2px;
   background-color: white;
+}
+.serverbar__close {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid aliceblue;
+  border-radius: 100px;
+  cursor: pointer;
 }
 
 /* channel bar */
@@ -519,6 +534,38 @@
   text-align: center;
 }
 
+/* chat bar(some only) */
+.pinger__toggleUsers {
+  position: absolute;
+  z-index: 100001;
+  right: 30px;
+  top: 10px;
+  background-color: #2f3136;
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid aliceblue;
+}
+.pinger__toggleChannels {
+  position: absolute;
+  z-index: 100000;
+  left: 10px;
+  top: 10px;
+  background-color: #2f3136;
+  width: 40px;
+  height: 40px;
+  border-radius: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 2px solid aliceblue;
+}
+
 /* Users Bar */
 .userbar__onlineusers,
 .userbar__offlineusers {
@@ -609,4 +656,13 @@
 .linkToJoin {
   width: 100%;
   word-break: break-all;
+}
+.userbar__closeuserbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 60px;
+  border: 2px solid aliceblue;
+  cursor: pointer;
 }
