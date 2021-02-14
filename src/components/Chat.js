@@ -12,7 +12,7 @@ import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import "./css/Chat.css";
 import { formatRelative } from "date-fns/esm";
 
-const chatUserColors = ["pink", "orange", "#ffdsb9", "#d80709"];
+const chatUserColors = ["orange", "orange"];
 
 const skeleton_chat = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
