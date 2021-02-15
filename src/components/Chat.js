@@ -10,7 +10,6 @@ import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
 import GifIcon from "@material-ui/icons/Gif";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import "./css/Chat.css";
-import { formatRelative } from "date-fns/esm";
 
 const chatUserColors = ["orange", "orange"];
 
